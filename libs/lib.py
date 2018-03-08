@@ -1,6 +1,9 @@
+"""
+This module contains helper modules.
+"""
+
 from math import sqrt
-from libs.ustr import ustr
-import hashlib
+
 try:
     from PyQt5.QtGui import *
     from PyQt5.QtCore import *
@@ -11,8 +14,11 @@ except ImportError:
 
 
 def newIcon(icon):
+    """
+    :param icon: An icon
+    :return: Return the QIcon
+    """
     return QIcon(':/' + icon)
-
 
 def newButton(text, icon=None, slot=None):
     b = QPushButton(text)
@@ -22,9 +28,8 @@ def newButton(text, icon=None, slot=None):
         b.clicked.connect(slot)
     return b
 
-
 def newAction(parent, text, slot=None, shortcut=None, icon=None,
-              tip=None, checkable=False, enabled=True):
+        tip=None, checkable=False, enabled=True):
     """Create a new action and assign callbacks, shortcuts, etc."""
     a = QAction(text, parent)
     if icon is not None:
@@ -46,6 +51,9 @@ def newAction(parent, text, slot=None, shortcut=None, icon=None,
 
 
 def addActions(widget, actions):
+    """
+    Setup the actions onto the given widget.
+    """
     for action in actions:
         if action is None:
             widget.addSeparator()
@@ -54,30 +62,18 @@ def addActions(widget, actions):
         else:
             widget.addAction(action)
 
-
 def labelValidator():
     return QRegExpValidator(QRegExp(r'^[^ \t].+'), None)
 
 
 class struct(object):
-
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
-
 def distance(p):
     return sqrt(p.x() * p.x() + p.y() * p.y())
-
 
 def fmtShortcut(text):
     mod, key = text.split('+', 1)
     return '<b>%s</b>+<b>%s</b>' % (mod, key)
 
-
-def generateColorByText(text):
-    s = str(ustr(text))   
-    hashCode = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16)
-    r = int((hashCode / 255) % 255)
-    g = int((hashCode / 65025)  % 255)
-    b = int((hashCode / 16581375)  % 255)
-    return QColor(r, g, b, 100)

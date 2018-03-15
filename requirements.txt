@@ -1,0 +1,4 @@
+lxml
+resources
+requests
+staty

@@ -9,5 +9,5 @@ docker run -it \
     --volume="/etc/shadow:/etc/shadow:ro" \
     --volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    faceaginggroup/py2qt4
+    mahaling/labelimg
 
